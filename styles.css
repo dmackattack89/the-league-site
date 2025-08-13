@@ -27,3 +27,21 @@ a{color:inherit;text-decoration:none}
 .card{border:1px solid var(--border);background:var(--tilebg);border-radius:10px;padding:16px}
 .h1{font-size:clamp(22px,3.2vw,34px);font-weight:800;margin:0 0 12px 0;text-transform:uppercase;letter-spacing:.06em}
 .muted{color:var(--muted)}
+/* Center the two lines inside each profile tile */
+.tile > div { 
+  text-align: center; 
+  width: 100%; 
+}
+
+.team-name {
+  font-weight: 800; 
+  letter-spacing: .02em; 
+  text-transform: none; /* keep actual team caps/punctuation */
+}
+
+.owner-name {
+  margin-top: 2px; 
+  /* it's already lighter via .sub, but this ensures it's treated as its own line */
+  display: block; 
+}
+
