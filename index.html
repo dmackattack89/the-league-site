@@ -125,6 +125,69 @@ html>
   }catch(err){
     status.innerHTML = '<span class="error">' + (err && err.message ? err.message : String(err)) + '</span>';
   }
+    // ---------------- DRAFT SECTION ----------------
+  // Draft details (edit here if needed)
+  const draftISO = '2025-08-23T17:15:00'; // 5:15 PM local on Aug 23, 2025
+  const draftOrderAliases = [
+    'Crimmins', 'Wil', 'Vasiliy', 'Tougias',
+    'Pappas', 'Rico', 'Rabideau', 'Tom',
+    'Abel', 'Drew', 'Mallows', 'Fami'
+  ];
+
+  // Render draft order list
+  (function renderDraftOrder(){
+    const ol = document.getElementById('draftOrder');
+    if(!ol) return;
+    ol.innerHTML = draftOrderAliases.map((name, i) => `
+      <li>
+        <span class="pick-num">${i+1}</span>
+        <span class="pick-name">${name.toUpperCase()}</span>
+      </li>
+    `).join('');
+  })();
+
+  // Set date parts for the left cards
+  (function hydrateDraftMeta(){
+    const d = new Date(draftISO);
+    const dow = d.toLocaleDateString(undefined, { weekday:'long' }).toUpperCase();
+    const month = d.toLocaleDateString(undefined, { month:'long' }).toUpperCase();
+    const day = d.getDate();
+    const time = d.toLocaleTimeString(undefined, { hour:'numeric', minute:'2-digit' });
+
+    const id = s => document.getElementById(s);
+    id('draftDow').textContent = `${dow},`;
+    id('draftDate').textContent = `${month} ${day}`;
+    id('draftTime').textContent = time;
+  })();
+
+  // Countdown timer
+  (function startCountdown(){
+    const target = new Date(draftISO).getTime();
+    const el = {
+      d: document.getElementById('cd-days'),
+      h: document.getElementById('cd-hrs'),
+      m: document.getElementById('cd-min'),
+      s: document.getElementById('cd-sec')
+    };
+    function pad(n){ return String(n).padStart(2,'0'); }
+    function tick(){
+      const now = Date.now();
+      let diff = Math.max(0, Math.floor((target - now)/1000));
+      const days = Math.floor(diff/86400); diff -= days*86400;
+      const hrs  = Math.floor(diff/3600);  diff -= hrs*3600;
+      const min  = Math.floor(diff/60);    diff -= min*60;
+      const sec  = diff;
+
+      el.d.textContent = pad(days);
+      el.h.textContent = pad(hrs);
+      el.m.textContent = pad(min);
+      el.s.textContent = pad(sec);
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
+  // -------------- /DRAFT SECTION -----------------
+
 })();
 </script>
 
