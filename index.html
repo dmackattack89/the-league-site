@@ -6,6 +6,55 @@ html>
 </head><body>
 <main class="wrap">
   <section class="hero-header"><img src="assets/header.jpg" alt="The League v18.0 — Fantasy Football"/></section>
+    <section class="hero-header"><img src="assets/header.jpg" alt="The League v18.0 — Fantasy Football"/></section>
+
+  <!-- === DRAFT SECTION (new) === -->
+  <section class="draft-wrap">
+    <h2 class="draft-title">DRAFT WEEKEND <span class="year">2025</span></h2>
+    <div class="draft-grid">
+      <div class="draft-left">
+        <!-- Countdown card -->
+        <div class="draft-card">
+          <div class="draft-card-head">COUNTDOWN</div>
+          <div class="countdown" id="countdown">
+            <div><span id="cd-days">00</span><label>DAYS</label></div>
+            <div><span id="cd-hrs">00</span><label>HRS</label></div>
+            <div><span id="cd-min">00</span><label>MIN</label></div>
+            <div><span id="cd-sec">00</span><label>SEC</label></div>
+          </div>
+        </div>
+
+        <!-- Date / Location / Time card -->
+        <div class="draft-card">
+          <div class="draft-when">
+            <div class="dow" id="draftDow">SATURDAY,</div>
+            <div class="date" id="draftDate">AUGUST 23</div>
+          </div>
+          <hr class="draft-hr"/>
+          <div class="where" id="draftWhere">RAGIN’ RABS’ LAGOON</div>
+          <div class="when-time"><span id="draftTime">5:15 PM</span></div>
+        </div>
+
+        <!-- Dues card -->
+        <div class="draft-card dues">
+          <div class="draft-card-head">DUES</div>
+          <div class="dues-row">
+            <div class="dollar">$</div><div class="amount">180</div>
+            <button class="pay-btn" disabled>PAY</button>
+          </div>
+          <div class="dues-note">(Link disabled for now)</div>
+        </div>
+      </div>
+
+      <div class="draft-right">
+        <div class="order">
+          <div class="order-head">DRAFT ORDER</div>
+          <ol id="draftOrder" class="order-list"></ol>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- === /DRAFT SECTION === -->
   <section class="hero-grid"><div class="hero-cards">
     <a class="tile large" href="standings.html">Standings</a>
     <a class="tile large" href="champions.html">Champions</a>
