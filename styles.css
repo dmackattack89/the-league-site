@@ -12,7 +12,13 @@ a{color:inherit;text-decoration:none}
 @media (max-width:640px){.hero-cards{grid-template-columns:1fr}}
 .tile{display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid var(--border);background:var(--tilebg);text-transform:uppercase;letter-spacing:.08em;font-weight:800;transition:transform .12s ease,background .12s ease,color .12s ease}
 .tile .sub{font-weight:600;letter-spacing:.02em;text-transform:none;color:var(--muted);font-size:13px}
-.tile.large{height:112px}.tile.small{height:84px}
+.tile.large{height:112px}.tile.small {
+  height: 120px; /* slightly taller for even grid look */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
 .tile:hover{background:var(--hoverbg);color:var(--hovertext);transform:translateY(-2px)}
 .tile:hover .sub{color:var(--bg)}
 .profiles{margin-top:24px}
