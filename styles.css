@@ -1,0 +1,29 @@
+/* Dark theme */
+:root{--bg:#0b0b0d;--text:#f5f6f8;--border:#f5f6f8;--tilebg:rgba(255,255,255,.06);--hoverbg:#f5f6f8;--hovertext:#0b0b0d;--muted:#cbd0d6}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);min-height:100%}
+body{font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1100px,94vw);margin:22px auto 56px}
+.hero-header{display:flex;align-items:center;justify-content:center;margin:18px 0 18px}
+.hero-header img{width:100%;height:auto;max-width:180px;display:block}
+.hero-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:900px){.hero-cards{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:640px){.hero-cards{grid-template-columns:1fr}}
+.tile{display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid var(--border);background:var(--tilebg);text-transform:uppercase;letter-spacing:.08em;font-weight:800;transition:transform .12s ease,background .12s ease,color .12s ease}
+.tile .sub{font-weight:600;letter-spacing:.02em;text-transform:none;color:var(--muted);font-size:13px}
+.tile.large{height:112px}.tile.small{height:84px}
+.tile:hover{background:var(--hoverbg);color:var(--hovertext);transform:translateY(-2px)}
+.tile:hover .sub{color:var(--bg)}
+.profiles{margin-top:24px}
+.profiles-grid{display:grid;gap:12px;grid-template-columns:repeat(5,minmax(0,1fr))}
+@media (max-width:900px){.profiles-grid{grid-template-columns:repeat(4,1fr)}}
+@media (max-width:640px){.profiles-grid{grid-template-columns:repeat(2,1fr)}}
+.divider{height:1px;background:rgba(255,255,255,.25);margin:30px 0 14px;border:0}
+.section-title{margin:0 0 10px 0;font-weight:900;letter-spacing:.06em;text-transform:uppercase;font-size:clamp(18px,2.4vw,22px)}
+.status{margin-top:6px;font-size:13px;color:var(--muted)}.error{color:#ffb3b3}
+.topnav{display:flex;align-items:center;gap:10px;margin:8px 0 16px}
+.pill{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--border);padding:8px 12px;border-radius:999px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;background:transparent}
+.card{border:1px solid var(--border);background:var(--tilebg);border-radius:10px;padding:16px}
+.h1{font-size:clamp(22px,3.2vw,34px);font-weight:800;margin:0 0 12px 0;text-transform:uppercase;letter-spacing:.06em}
+.muted{color:var(--muted)}

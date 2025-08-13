@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>The League v18.0 — Home</title>
+<link rel="stylesheet" href="styles.css"/>
+</head><body>
+<main class="wrap">
+  <section class="hero-header"><img src="assets/header.jpg" alt="The League v18.0 — Fantasy Football"/></section>
+  <section class="hero-grid"><div class="hero-cards">
+    <a class="tile large" href="standings.html">Standings</a>
+    <a class="tile large" href="champions.html">Champions</a>
+    <a class="tile large" href="announcements.html">Announcements</a>
+    <a class="tile large" href="draft.html">The Draft</a>
+    <a class="tile large" href="records.html">Records</a>
+    <a class="tile large" href="trophy.html">Trophy Room</a>
+  </div></section>
+  <hr class="divider"/><h2 class="section-title">Player Profiles</h2>
+  <section class="profiles">
+    <div id="profiles" class="profiles-grid"></div>
+    <div id="profilesStatus" class="status"></div>
+  </section>
+</main>
+<script>
+(async function(){
+  const grid = document.getElementById('profiles');
+  const status = document.getElementById('profilesStatus');
+  status.textContent = 'Loading ESPN teams…';
+  try{
+    const res = await fetch('/.netlify/functions/espn-league', { cache: 'no-store' });
+    if(!res.ok){
+      const txt = await res.text();
+      status.innerHTML = '<span class="error">ESPN fetch failed ('+res.status+').</span> ' + txt;
+      return;
+    }
+    const data = await res.json();
+    const teams = data.teams || [];
+    if(teams.length === 0){
+      status.textContent = 'No teams returned.';
+      return;
+    }
+    grid.innerHTML = teams.map(t => {
+      const name = t.name || ('Team ' + t.id);
+      const owner = t.owner ? '(' + t.owner + ')' : '';
+      return '<div class="tile small"><div>' + name + '</div><div class="sub">' + owner + '</div></div>';
+    }).join('');
+    status.textContent = '';
+  }catch(err){
+    status.innerHTML = '<span class="error">' + (err && err.message ? err.message : String(err)) + '</span>';
+  }
+})();
+</script>
+</body></html>
