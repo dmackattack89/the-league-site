@@ -7,6 +7,15 @@ html>
 <main class="wrap">
     <section class="hero-header"><img src="assets/header.jpg" alt="The League v18.0 — Fantasy Football"/></section>
 
+html>
+<html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>The League v18.0 — Home</title>
+<link rel="stylesheet" href="styles.css"/>
+</head><body>
+<main class="wrap">
+    <section class="hero-header"><img src="assets/header.jpg" alt="The League v18.0 — Fantasy Football"/></section>
+
   <!-- === DRAFT SECTION (new) === -->
   <section class="draft-wrap">
     <h2 class="draft-title">DRAFT WEEKEND <span class="year">2025</span></h2>
@@ -60,6 +69,144 @@ html>
     </div>
   </section>
   <!-- === /DRAFT SECTION === -->
+  <section class="hero-grid"><div class="hero-cards">
+    <a class="tile large" href="standings.html">Standings</a>
+    <a class="tile large" href="champions.html">Champions</a>
+    <a class="tile large" href="announcements.html">Announcements</a>
+    <a class="tile large" href="draft.html">The Draft</a>
+    <a class="tile large" href="records.html">Records</a>
+    <a class="tile large" href="trophy.html">Trophy Room</a>
+  </div></section>
+  <hr class="divider"/><h2 class="section-title">Player Profiles</h2>
+  <section class="profiles">
+    <div id="profiles" class="profiles-grid"></div>
+    <div id="profilesStatus" class="status"></div>
+  </section>
+</main>
+<script>
+(async function(){
+  const grid = document.getElementById('profiles');
+  const status = document.getElementById('profilesStatus');
+  status.textContent = 'Loading ESPN teams…';
+
+  // Owner username → alias mapping (case-insensitive)
+  const ownerAliases = {
+    "tougabeast3458": "Tougias",
+    "afam1712": "Fami",
+    "eye eye rico": "Rico",
+    "dmackdaddy89": "Drew",
+    "rabs4hockey": "Rabideau",
+    "t315young": "Tom",
+    "thetruth34248": "Abel",
+    "espnfan0051809292": "Mallows",
+    "wil mackenzie": "Wil",
+    "vasiliy3247": "Vasiliy",
+    "timothycrimmins": "Crimmins",
+    "jpaps33": "Pappas"
+  };
+  const aliasFor = (owner) => {
+    const key = String(owner || '').trim().toLowerCase();
+    return ownerAliases[key] || owner || '';
+  };
+
+  try{
+    const res = await fetch('/.netlify/functions/espn-league', { cache: 'no-store' });
+    if(!res.ok){
+      const txt = await res.text();
+      status.innerHTML = '<span class="error">ESPN fetch failed ('+res.status+').</span> ' + txt;
+      return;
+    }
+    const data = await res.json();
+    const teams = data.teams || [];
+    if(teams.length === 0){
+      status.textContent = 'No teams returned.';
+      return;
+    }
+
+    // Build the tiles: Team Name (Alias) — both centered on separate lines
+    grid.innerHTML = teams.map(t => {
+      const name = t.name || ('Team ' + t.id);
+      const ownerAlias = aliasFor(t.owner);
+      const ownerLine = ownerAlias ? `(${ownerAlias})` : '';
+      return `
+        <div class="tile small">
+          <div class="team-name">${name}</div>
+          <div class="sub owner-name">${ownerLine}</div>
+        </div>`;
+    }).join('');
+
+    status.textContent = '';
+  }catch(err){
+    status.innerHTML = '<span class="error">' + (err && err.message ? err.message : String(err)) + '</span>';
+  }
+    // ---------------- DRAFT SECTION ----------------
+  // Draft details (edit here if needed)
+  const draftISO = '2025-08-23T17:15:00'; // 5:15 PM local on Aug 23, 2025
+  const draftOrderAliases = [
+    'Crimmins', 'Wil', 'Vasiliy', 'Tougias',
+    'Pappas', 'Rico', 'Rabideau', 'Tom',
+    'Abel', 'Drew', 'Mallows', 'Fami'
+  ];
+
+  // Render draft order list
+  (function renderDraftOrder(){
+    const ol = document.getElementById('draftOrder');
+    if(!ol) return;
+    ol.innerHTML = draftOrderAliases.map((name, i) => `
+      <li>
+        <span class="pick-num">${i+1}</span>
+        <span class="pick-name">${name.toUpperCase()}</span>
+      </li>
+    `).join('');
+  })();
+
+  // Set date parts for the left cards
+  (function hydrateDraftMeta(){
+    const d = new Date(draftISO);
+    const dow = d.toLocaleDateString(undefined, { weekday:'long' }).toUpperCase();
+    const month = d.toLocaleDateString(undefined, { month:'long' }).toUpperCase();
+    const day = d.getDate();
+    const time = d.toLocaleTimeString(undefined, { hour:'numeric', minute:'2-digit' });
+
+    const id = s => document.getElementById(s);
+    id('draftDow').textContent = `${dow},`;
+    id('draftDate').textContent = `${month} ${day}`;
+    id('draftTime').textContent = time;
+  })();
+
+  // Countdown timer
+  (function startCountdown(){
+    const target = new Date(draftISO).getTime();
+    const el = {
+      d: document.getElementById('cd-days'),
+      h: document.getElementById('cd-hrs'),
+      m: document.getElementById('cd-min'),
+      s: document.getElementById('cd-sec')
+    };
+    function pad(n){ return String(n).padStart(2,'0'); }
+    function tick(){
+      const now = Date.now();
+      let diff = Math.max(0, Math.floor((target - now)/1000));
+      const days = Math.floor(diff/86400); diff -= days*86400;
+      const hrs  = Math.floor(diff/3600);  diff -= hrs*3600;
+      const min  = Math.floor(diff/60);    diff -= min*60;
+      const sec  = diff;
+
+      el.d.textContent = pad(days);
+      el.h.textContent = pad(hrs);
+      el.m.textContent = pad(min);
+      el.s.textContent = pad(sec);
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
+  // -------------- /DRAFT SECTION -----------------
+
+})();
+</script>
+
+</body></html>
+
   <section class="hero-grid"><div class="hero-cards">
     <a class="tile large" href="standings.html">Standings</a>
     <a class="tile large" href="champions.html">Champions</a>
