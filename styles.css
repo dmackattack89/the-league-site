@@ -108,23 +108,34 @@ a{
 }
 .draft-title .year{ display:block; font-size: clamp(22px,4.5vw,44px); margin-top: 4px; }
 
-/* Draft grid — keep two columns side-by-side */
+/* Draft grid — keep two columns side-by-side on desktop */
 .draft-grid{
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr); /* shrinkable columns */
-  gap: 16px;
+  display:grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.25fr); /* shrinkable columns */
+  gap:16px;                 /* space between left and right columns */
+  align-items:start;
 }
 
-/* Let grid items shrink instead of forcing a wrap */
+/* Left column: stacked cards with vertical spacing */
+.draft-left{
+  display:flex;
+  flex-direction:column;
+  gap:24px;                 /* vertical space between countdown / date / dues */
+}
+
+/* Ensure items can shrink and not force a wrap */
 .draft-left,
 .draft-right,
-.order {
-  min-width: 0;
+.order{
+  min-width:0;
 }
 
-/* Switch to 1 column only on narrower screens */
-@media (max-width: 820px){
-  .draft-grid{ grid-template-columns: 1fr; }
+/* Keep order panel from exceeding its column */
+.order{ width:100%; }
+
+/* Switch to single column only on small screens */
+@media (max-width:700px){
+  .draft-grid{ grid-template-columns:1fr; }
 }
 
 
