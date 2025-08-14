@@ -74,15 +74,19 @@
     const rows = teams.map(toRow).sort((a,b) => a.seed - b.seed);
 
     // Render
-    list.innerHTML = rows.map(r => `
-      <li class="board-row">
-        <div class="col seed"><span class="seed-pill">${r.seed}</span></div>
-        <div class="col team"><span class="team-name">${r.name.toUpperCase()}</span></div>
-        <div class="col rec"><span class="record">${r.wins}-${r.losses}</span></div>
-        <div class="col avg"><span class="avgnum">${r.avg}</span></div>
-        <div class="col bank"><span class="banknum">$${r.bank}</span></div>
-      </li>
-    `).join('');
+list.innerHTML = rows.map(r => {
+  const seedClass = r.seed <= 6 ? 'top' : 'rest';
+  return `
+    <li class="board-row">
+      <div class="col seed"><span class="seed-pill ${seedClass}">${r.seed}</span></div>
+      <div class="col team"><span class="team-name">${r.name.toUpperCase()}</span></div>
+      <div class="col rec"><span class="record">${r.wins}-${r.losses}</span></div>
+      <div class="col avg"><span class="avgnum">${r.avg}</span></div>
+      <div class="col bank"><span class="banknum">$${r.bank}</span></div>
+    </li>
+  `;
+}).join('');
+
 
     status.textContent = '';
   }catch(err){
