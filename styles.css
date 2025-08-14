@@ -132,6 +132,7 @@ a{
 .where{ text-align:center; font-weight:900; letter-spacing:.06em; margin-top:6px; }
 .when-time{ text-align:center; font-weight:900; font-size: clamp(22px,4.2vw,36px); margin-top:10px; }
 
+/* Dues */
 .dues .dues-row{ display:flex; align-items:center; gap:8px; justify-content:center; margin-top:4px; }
 .dues .dollar{ font-weight:900; font-size: clamp(26px,4.5vw,40px); }
 .dues .amount{ font-weight:900; font-size: clamp(26px,4.5vw,40px); }
@@ -146,13 +147,13 @@ a{
   letter-spacing:.06em;
   background:#2b2b2b;
   color:#9af0cf;
-  cursor:pointer;          /* <-- important */
-  text-decoration:none;    /* since it’s an <a> */
+  cursor:pointer;
+  text-decoration:none;
 }
 .pay-btn:hover{ filter:brightness(1.05); }
-
 .dues-note{ text-align:center; font-size:12px; color:#777; margin-top:6px; }
 
+/* Order panel */
 .order{
   background:#ffffff; border: 6px solid #2f2f2f; border-radius:26px; padding: 12px 12px 6px;
 }
@@ -162,13 +163,44 @@ a{
 }
 .order-list{ list-style:none; margin:0; padding:0 8px 10px 8px; }
 .order-list li{
-  display:flex; align-items:center; gap:12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between; /* left side (num+name) + right side (badge) */
+  gap:12px;
   padding: 14px 10px;
   border-bottom: 2px solid #e6e6e6;
 }
 .order-list li:last-child{ border-bottom:none; }
+
+.pick-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
 .pick-num{
   width:34px; height:34px; border-radius:50%; background:#e9e9e9;
   display:inline-flex; align-items:center; justify-content:center; font-weight:900;
 }
 .pick-name{ font-weight: 900; letter-spacing:.06em; font-size: clamp(16px,2.8vw,24px); }
+
+/* Paid badge — matches the screenshot */
+.paid-badge{
+  background:#e6e6e6;
+  border-radius:20px;
+  padding:6px 12px;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-weight:900;
+  font-size:12px;
+  letter-spacing:.06em;
+}
+.paid-badge .tick{
+  width:22px; height:22px;
+  border-radius:50%;
+  background:#2f2f2f;
+  color:#9af0cf;
+  display:inline-flex; align-items:center; justify-content:center;
+  font-size:12px; line-height:1;
+}
