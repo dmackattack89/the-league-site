@@ -198,3 +198,11 @@ a{
   display:inline-flex; align-items:center; justify-content:center; font-weight:900;
 }
 .pick-name{ font-weight: 900; letter-spacing:.06em; font-size: clamp(16px,2.8vw,24px); }
+
+/* Force 2 columns above 700px even if an older media rule exists */
+@media (min-width: 701px){
+  .draft-grid{
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.25fr) !important;
+  }
+  .draft-left, .draft-right, .order{ min-width:0; }  /* allow shrink */
+}
