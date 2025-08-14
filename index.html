@@ -1,18 +1,25 @@
-html>
-<html lang="en"><head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>The League v18.0 — Home</title>
 <link rel="stylesheet" href="styles.css"/>
-</head><body>
+</head>
+<body>
 <main class="wrap">
-    <section class="hero-header"><img src="assets/header.jpg" alt="The League v18.0 — Fantasy Football"/></section>
+  <section class="hero-header">
+    <img src="assets/header.jpg" alt="The League v18.0 — Fantasy Football"/>
+  </section>
 
-  <!-- === DRAFT SECTION (new) === -->
+  <!-- === DRAFT SECTION === -->
   <section class="draft-wrap">
     <h2 class="draft-title">DRAFT WEEKEND <span class="year">2025</span></h2>
+
     <div class="draft-grid">
+      <!-- LEFT COLUMN -->
       <div class="draft-left">
-        <!-- Countdown card -->
+        <!-- Countdown -->
         <div class="draft-card">
           <div class="draft-card-head">COUNTDOWN</div>
           <div class="countdown" id="countdown">
@@ -23,7 +30,7 @@ html>
           </div>
         </div>
 
-        <!-- Date / Location / Time card -->
+        <!-- Date / Location / Time -->
         <div class="draft-card">
           <div class="draft-when">
             <div class="dow" id="draftDow">SATURDAY,</div>
@@ -34,48 +41,49 @@ html>
           <div class="when-time"><span id="draftTime">5:15 PM</span></div>
         </div>
 
-        <!-- Dues card -->
+        <!-- Dues -->
         <div class="draft-card dues">
           <div class="draft-card-head">DUES</div>
           <div class="dues-row">
             <div class="dollar">$</div><div class="amount">165</div>
-            <a
-  class="pay-btn"
-  href="https://venmo.com/u/Alex-Tougias"
-  target="_blank"
-  rel="noopener"
->
-  PAY
-</a>
-
+            <a class="pay-btn" href="https://venmo.com/u/Alex-Tougias" target="_blank" rel="noopener">PAY</a>
           </div>
-<div class="dues-note">Click "Pay" to send league dues via Venmo</div>
+          <div class="dues-note">Click "Pay" to send league dues via Venmo</div>
         </div>
       </div>
+      <!-- /LEFT COLUMN -->
 
+      <!-- RIGHT COLUMN -->
       <div class="draft-right">
         <div class="order">
           <div class="order-head">DRAFT ORDER</div>
           <ol id="draftOrder" class="order-list"></ol>
         </div>
       </div>
+      <!-- /RIGHT COLUMN -->
     </div>
   </section>
   <!-- === /DRAFT SECTION === -->
-  <section class="hero-grid"><div class="hero-cards">
-    <a class="tile large" href="standings.html">Standings</a>
-    <a class="tile large" href="champions.html">Champions</a>
-    <a class="tile large" href="announcements.html">Announcements</a>
-    <a class="tile large" href="draft.html">The Draft</a>
-    <a class="tile large" href="records.html">Records</a>
-    <a class="tile large" href="trophy.html">Trophy Room</a>
-  </div></section>
-  <hr class="divider"/><h2 class="section-title">Player Profiles</h2>
+
+  <section class="hero-grid">
+    <div class="hero-cards">
+      <a class="tile large" href="standings.html">Standings</a>
+      <a class="tile large" href="champions.html">Champions</a>
+      <a class="tile large" href="announcements.html">Announcements</a>
+      <a class="tile large" href="draft.html">The Draft</a>
+      <a class="tile large" href="records.html">Records</a>
+      <a class="tile large" href="trophy.html">Trophy Room</a>
+    </div>
+  </section>
+
+  <hr class="divider"/>
+  <h2 class="section-title">Player Profiles</h2>
   <section class="profiles">
     <div id="profiles" class="profiles-grid"></div>
     <div id="profilesStatus" class="status"></div>
   </section>
 </main>
+
 <script>
 (async function(){
   const grid = document.getElementById('profiles');
@@ -132,7 +140,9 @@ html>
   }catch(err){
     status.innerHTML = '<span class="error">' + (err && err.message ? err.message : String(err)) + '</span>';
   }
-    // ---------------- DRAFT SECTION ----------------
+
+  // ---------------- DRAFT SECTION ----------------
+
   // Draft details (edit here if needed)
   const draftISO = '2025-08-23T17:15:00'; // 5:15 PM local on Aug 23, 2025
   const draftOrderAliases = [
@@ -141,16 +151,30 @@ html>
     'Abel', 'Drew', 'Mallows', 'Fami'
   ];
 
-  // Render draft order list
+  // Who has paid — add/remove names here (match the names above)
+  const paidSet = new Set(['Crimmins','Wil','Rabideau']);
+
+  // Render draft order list (with optional PAID badge)
   (function renderDraftOrder(){
     const ol = document.getElementById('draftOrder');
     if(!ol) return;
-    ol.innerHTML = draftOrderAliases.map((name, i) => `
-      <li>
-        <span class="pick-num">${i+1}</span>
-        <span class="pick-name">${name.toUpperCase()}</span>
-      </li>
-    `).join('');
+    ol.innerHTML = draftOrderAliases.map((name, i) => {
+      const paid = paidSet.has(name);
+      return `
+        <li>
+          <div class="pick-left">
+            <span class="pick-num">${i+1}</span>
+            <span class="pick-name">${name.toUpperCase()}</span>
+          </div>
+          ${paid ? `
+            <span class="paid-badge">
+              <span class="label">PAID</span>
+              <span class="tick">✓</span>
+            </span>
+          ` : ``}
+        </li>
+      `;
+    }).join('');
   })();
 
   // Set date parts for the left cards
@@ -193,9 +217,9 @@ html>
     tick();
     setInterval(tick, 1000);
   })();
-  // -------------- /DRAFT SECTION -----------------
 
+  // -------------- /DRAFT SECTION -----------------
 })();
 </script>
-
-</body></html>
+</body>
+</html>
