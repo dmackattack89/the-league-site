@@ -1,7 +1,94 @@
-<!doctype html><html lang="en"><head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Standings — The League v18.0</title>
-<link rel="stylesheet" href="styles.css"/></head><body>
-<main class="wrap"><div class="topnav"><a class="pill" href="index.html">← Home</a></div>
-<section class="card"><h1 class="h1">Standings</h1><div class="muted">Placeholder page. We’ll add real content after design lock.</div></section>
-</main></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>The League v18.0 — Standings</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+<main class="wrap">
+  <!-- Top nav back to Home -->
+  <nav class="topnav">
+    <a class="pill" href="index.html">← Home</a>
+  </nav>
+
+  <!-- Standings board -->
+  <section class="board">
+    <header class="board-head">
+      <h1 class="board-title"><span class="year" id="yr">2025</span> STANDINGS</h1>
+      <!-- no archive button by request -->
+    </header>
+
+    <div class="board-rule"></div>
+
+    <div class="board-header-row">
+      <div class="col team">TEAM</div>
+      <div class="col rec">RECORD</div>
+      <div class="col avg">AVG PER WEEK</div>
+      <div class="col bank">BANK</div>
+    </div>
+
+    <ol id="standingsList" class="board-list"></ol>
+
+    <div id="standingsStatus" class="status"></div>
+  </section>
+</main>
+
+<script>
+(async function(){
+  const list   = document.getElementById('standingsList');
+  const status = document.getElementById('standingsStatus');
+  const yrEl   = document.getElementById('yr');
+
+  // Adjust the year to your season if needed
+  const seasonYear = 2025;
+  yrEl.textContent = seasonYear;
+
+  status.textContent = 'Loading standings…';
+
+  try{
+    const res = await fetch('/.netlify/functions/espn-league', { cache: 'no-store' });
+    if(!res.ok){
+      const txt = await res.text();
+      status.innerHTML = '<span class="error">ESPN fetch failed ('+res.status+').</span> ' + txt;
+      return;
+    }
+    const data = await res.json();
+    const teams = (data && data.teams) ? data.teams.slice() : [];
+
+    // Normalize values with safe defaults for preseason (0-0, $0)
+    const toRow = (t, idx) => {
+      const seed  = (typeof t.rank === 'number' ? t.rank : (idx+1));
+      const name  = t.name || ('Team ' + (t.id ?? seed));
+      const wins  = Number(t.wins ?? t.record?.overall?.wins ?? 0) || 0;
+      const losses= Number(t.losses ?? t.record?.overall?.losses ?? 0) || 0;
+      const pf    = Number(t.pointsFor ?? t.points_for ?? 0) || 0;  // points for if you want later
+      const avg   = (t.gamesPlayed ? (pf / t.gamesPlayed) : 0).toFixed(2);
+      const bank  = Number(t.bank ?? 0).toFixed(0); // your league pot tracking, default 0
+
+      return { seed, name, wins, losses, avg, bank };
+    };
+
+    // Sort by ESPN seed/rank if present; otherwise keep array order
+    const rows = teams.map(toRow).sort((a,b) => a.seed - b.seed);
+
+    // Render
+    list.innerHTML = rows.map(r => `
+      <li class="board-row">
+        <div class="col seed"><span class="seed-pill">${r.seed}</span></div>
+        <div class="col team"><span class="team-name">${r.name.toUpperCase()}</span></div>
+        <div class="col rec"><span class="record">${r.wins}-${r.losses}</span></div>
+        <div class="col avg"><span class="avgnum">${r.avg}</span></div>
+        <div class="col bank"><span class="banknum">$${r.bank}</span></div>
+      </li>
+    `).join('');
+
+    status.textContent = '';
+  }catch(err){
+    status.innerHTML = '<span class="error">' + (err && err.message ? err.message : String(err)) + '</span>';
+  }
+})();
+</script>
+</body>
+</html>
