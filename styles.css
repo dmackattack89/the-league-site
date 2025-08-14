@@ -108,36 +108,10 @@ a{
 }
 .draft-title .year{ display:block; font-size: clamp(22px,4.5vw,44px); margin-top: 4px; }
 
-/* Draft grid — keep two columns side-by-side on desktop */
-.draft-grid{
-  display:grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.25fr); /* shrinkable columns */
-  gap:16px;                 /* space between left and right columns */
-  align-items:start;
-}
-
-/* Left column: stacked cards with vertical spacing */
-.draft-left{
-  display:flex;
-  flex-direction:column;
-  gap:24px;                 /* vertical space between countdown / date / dues */
-}
-
-/* Ensure items can shrink and not force a wrap */
-.draft-left,
-.draft-right,
-.order{
-  min-width:0;
-}
-
-/* Keep order panel from exceeding its column */
-.order{ width:100%; }
-
-/* Switch to single column only on small screens */
-@media (max-width:700px){
-  .draft-grid{ grid-template-columns:1fr; }
-}
-
+.draft-grid{ display:grid; grid-template-columns: 1.1fr 1.4fr; gap: 16px; }
+@media (max-width: 900px){ .draft-grid{ grid-template-columns: 1fr; } }
+.draft-left{ display:flex; flex-direction:column; gap:16px; }
+.draft-right{ }
 
 .draft-card{
   background:#fff; border-radius: 20px; padding: 16px;
@@ -162,21 +136,9 @@ a{
 .dues .dollar{ font-weight:900; font-size: clamp(26px,4.5vw,40px); }
 .dues .amount{ font-weight:900; font-size: clamp(26px,4.5vw,40px); }
 .pay-btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  border:none;
-  border-radius:20px;
-  padding:10px 18px;
-  font-weight:900;
-  letter-spacing:.06em;
-  background:#2b2b2b;
-  color:#9af0cf;
-  cursor:pointer;            /* <- was not-allowed */
-  text-decoration:none;      /* since it’s an <a> */
+  border:none; border-radius:20px; padding:10px 18px; font-weight:900; letter-spacing:.06em;
+  background:#2b2b2b; color:#9af0cf; cursor:not-allowed;
 }
-.pay-btn:hover{ filter:brightness(1.05); }
-
 .dues-note{ text-align:center; font-size:12px; color:#777; margin-top:6px; }
 
 .order{
@@ -198,11 +160,3 @@ a{
   display:inline-flex; align-items:center; justify-content:center; font-weight:900;
 }
 .pick-name{ font-weight: 900; letter-spacing:.06em; font-size: clamp(16px,2.8vw,24px); }
-
-/* Force 2 columns above 700px even if an older media rule exists */
-@media (min-width: 701px){
-  .draft-grid{
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.25fr) !important;
-  }
-  .draft-left, .draft-right, .order{ min-width:0; }  /* allow shrink */
-}
