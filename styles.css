@@ -256,12 +256,18 @@ a{
 }
 .board-row:last-child{ border-bottom:none; }
 
+/* seed pill */
 .seed-pill{
   display:inline-flex; align-items:center; justify-content:center;
   width:44px; height:44px;
   border-radius:12px;
-  background:#9af0cf; color:#1b1c1f; font-weight:900;
+  font-weight:900;
 }
+/* top-6 = mint */
+.seed-pill.top { background:#9af0cf; color:#1b1c1f; }
+/* rest = gray */
+.seed-pill.rest { background:#bfc3c9; color:#2f2f2f; }
+
 .board .team-name{ font-weight:900; letter-spacing:.06em; font-size: clamp(16px,2.2vw,22px); }
 .board .record{ font-weight:900; }
 .board .avgnum, .board .banknum{ font-weight:900; }
