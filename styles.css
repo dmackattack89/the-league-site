@@ -233,31 +233,41 @@ a{
   margin:12px 0 16px;
 }
 
-/* --- header row & rows use the same column template --- */
+/* --- header row & rows use the same 4-column template (seed | team | record | avg) --- */
 .board-header-row.three{
   display:grid;
-  grid-template-columns: 80px 1fr 160px 160px; /* seed/team | record | avg */
+  grid-template-columns: 80px 1fr 160px 160px; /* seed | team | record | avg */
   gap:12px;
   align-items:center;
   padding:10px 10px 6px 10px;
   color: rgba(255,255,255,.8);
   font-weight:800;
   letter-spacing:.08em;
+  text-align:center;                 /* center the header text in each header cell */
 }
+/* data list container */
 .board-list{
   list-style:none;
   margin:0;
   padding:0 6px 8px 6px;
 }
+/* rows */
 .board-row.three{
   display:grid;
-  grid-template-columns: 80px 1fr 160px 160px; /* seed/team | record | avg */
+  grid-template-columns: 80px 1fr 160px 160px; /* seed | team | record | avg */
   gap:12px;
   align-items:center;
   padding:16px 10px;
   border-bottom:1px solid rgba(255,255,255,.25);
 }
 .board-row.three:last-child{ border-bottom:none; }
+
+/* alignment inside row cells: seed/record/avg centered, team left */
+.board-row.three .col.seed,
+.board-row.three .col.rec,
+.board-row.three .col.avg{ text-align:center; }
+.board-row.three .col.team{ text-align:left; }
+
 
 .seed-pill{
   display:inline-flex; align-items:center; justify-content:center;
