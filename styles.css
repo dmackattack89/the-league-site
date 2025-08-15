@@ -301,144 +301,23 @@ a{
   .board-row.three .record::before{ content:"REC "; letter-spacing:.08em; margin-right:6px; opacity:.7; }
   .board-row.three .avgnum::before{ content:"AVG "; letter-spacing:.08em; margin-right:6px; opacity:.7; }
 }
-/* ===== Champions page ===== */
 
-/* Card wrapper */
-.champ-hero{
-  padding: 16px;
+/* ===== Champions page ===== */
+/* Card wrapper for hero image */
+.champ-hero {
+  padding: 0; /* remove default padding */
+  border-radius: 16px;
+  overflow: hidden;
   border: 1px solid var(--border);
   background: var(--tilebg);
-  border-radius: 16px;
-  margin-bottom: 22px;
 }
 
-/* ----- Banner/Ribbon header ----- */
-.champ-header{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:10px;
-  margin-bottom: 14px;
-}
-
-.champ-year{
-  font-weight: 900;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  font-size: clamp(18px,3.2vw,26px);
-  color: #75e5be; /* mint like your site */
-}
-
-/* “CHAMPION” ribbon */
-.champ-ribbon{
-  position:relative;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding: 14px 28px;
-  border-radius: 10px;
-  background: #2f2f2f;
-  color:#fff;
-  font-weight:900;
-  letter-spacing:.10em;
-  text-transform:uppercase;
-  font-size: clamp(20px,4.2vw,36px);
-  line-height:1;
-}
-.champ-ribbon::before,
-.champ-ribbon::after{
-  content:"";
-  position:absolute;
-  top:50%;
-  width: 46px; height: 16px;
-  background:#2f2f2f;
-  transform: translateY(-50%);
-  border-radius: 3px;
-}
-.champ-ribbon::before{ left: -40px; }
-.champ-ribbon::after{  right:-40px; }
-
-/* Little “notches” on ribbon ends (purely decorative) */
-.champ-ribbon::before{
-  clip-path: polygon(0 0, 100% 25%, 100% 75%, 0% 100%);
-}
-.champ-ribbon::after{
-  clip-path: polygon(0 25%, 100% 0, 100% 100%, 0 75%);
-}
-
-/* ----- 3-panel grid: trophy | winner | stats ----- */
-.champ-grid{
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(320px, 360px);
-  gap: 16px;
-  align-items: center;
-}
-.champ-grid > *{ min-width:0; }
-
-/* LEFT: trophy image — keep smaller than the winner art */
-.champ-col-left{
-  display:flex; align-items:center; justify-content:center;
-}
-.champ-trophy{
+.hero-image {
+  display: block;
   width: 100%;
-  max-width: 320px;            /* <= keeps trophy <= winner art */
   height: auto;
-  display:block;
-  object-fit: contain;
 }
 
-/* MIDDLE: winner art + caption */
-.champ-col-middle{
-  display:flex; flex-direction:column;
-  align-items:center; justify-content:center;
-}
-.champ-winner-art{
-  width: 100%;
-  max-width: 360px;            /* winner art target size */
-  height:auto; display:block;
-  object-fit: contain;
-}
-.winner-caption{
-  margin-top:8px;
-  font-weight:800;
-  letter-spacing:.04em;
-  text-transform:none;
-  color: var(--text);
-}
-
-/* RIGHT: stat cards */
-.champ-col-right{
-  display:grid; gap:14px;
-}
-.champ-stat{
-  background: var(--bg);
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 14px 16px;
-}
-.champ-stat .label{
-  font-size: 12px;
-  letter-spacing: .10em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.champ-stat .value{
-  margin-top:6px;
-  font-weight:900;
-  font-size: clamp(20px, 3vw, 34px);
-}
-
-/* Responsive */
-@media (max-width: 980px){
-  .champ-grid{
-    grid-template-columns: 1fr 1fr;
-  }
-  .champ-col-right{ grid-column: 1 / -1; }
-}
-@media (max-width: 680px){
-  .champ-grid{ grid-template-columns: 1fr; }
-}
 
 /* ===== Past Champions (banners) ===== */
 .champion-banners{ margin: 24px 0 40px; }
