@@ -467,3 +467,17 @@ a{
 .banner figcaption{
   margin-top:8px; font-size:13px; color:var(--muted); text-align:center; line-height:1.35;
 }
+/* ----- Single-image hero variant ----- */
+.champ-hero--image{
+  /* reuse .champ-hero card look, but let the image reach the edges */
+  padding: 0;
+  overflow: hidden;
+}
+
+.hero-image{
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 16px; /* match the champ-hero card radius */
+}
+
