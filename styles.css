@@ -320,7 +320,6 @@ a{
 
 
 /* ===== Past Champions (banners) ===== */
-/* ===== Past Champions (banners) ===== */
 .champion-banners{ margin: 24px 0 40px; }
 .banners-title{
   margin: 0 0 12px 0;
@@ -328,43 +327,25 @@ a{
   text-align: center; font-size: clamp(18px, 2.4vw, 22px);
   color: var(--text);
 }
-
 .banner-grid{
   display:grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 16px;
   align-items:start;
 }
-
-/* Flat banners – no white card/background */
 .banner{
-  margin: 0;
-  padding: 0;
-  border: none;
-  background: transparent;
-  border-radius: 0;
-  box-shadow: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  margin:0; padding:10px;
+  border:1px solid var(--border);
+  background: var(--tilebg);
+  border-radius:12px;
+  display:flex; flex-direction:column; align-items:center;
 }
-
 .banner img{
-  display: block;
-  width: 100%;
-  height: auto;
-  max-width: 340px;  /* adjust if you want larger/smaller */
-  border-radius: 0;  /* keep edges exactly as in the PNG */
+  width:100%; height:auto; max-width:340px; display:block; border-radius:6px;
 }
-
 .banner figcaption{
-  margin-top:8px;
-  font-size:13px;
-  color:var(--muted);
-  text-align:center;
-  line-height:1.35;
+  margin-top:8px; font-size:13px; color:var(--muted); text-align:center; line-height:1.35;
 }
-
 /* ----- Single-image hero variant ----- */
 .champ-hero--image{
   /* reuse .champ-hero card look, but let the image reach the edges */
