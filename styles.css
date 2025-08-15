@@ -301,75 +301,86 @@ a{
   .board-row.three .record::before{ content:"REC "; letter-spacing:.08em; margin-right:6px; opacity:.7; }
   .board-row.three .avgnum::before{ content:"AVG "; letter-spacing:.08em; margin-right:6px; opacity:.7; }
 }
-/* ===== Champions Page ===== */
-.champs-wrap{
-  background:#2f2f2f;
-  color:#f5f6f8;
-  border-radius:28px;
-  padding:18px;
-}
-.champs-head.center{ display:flex; align-items:center; justify-content:center; }
-.champs-title{
-  margin:0; font-weight:900; letter-spacing:.06em;
-  font-size:clamp(26px,4.8vw,48px); text-align:center;
-}
-.champs-title .year{ color:#9af0cf; margin-right:10px; }
 
-.divider-lite{
-  height:4px; border-radius:4px; margin:16px 0;
-  background: repeating-linear-gradient(
-    to right, transparent 0 18px, rgba(255,255,255,.35) 18px 24px
-  );
-}
-
-/* Hero layout (latest champ) */
+/* ===== Champions page ===== */
 .champ-hero{
-  display:grid; grid-template-columns: 280px 1fr;
-  gap:18px; align-items:center;
-  background:#1f1f1f; border:1px solid #3a3a3a;
-  border-radius:22px; padding:16px;
-}
-@media (max-width:800px){ .champ-hero{ grid-template-columns:1fr; } }
-
-.hero-media{
-  display:grid; grid-template-columns: 1fr 1fr;
-  gap:12px; align-items:center; justify-items:center;
-}
-.hero-headshot, .hero-trophy{
-  width:100%; height:200px; object-fit:cover;
-  border-radius:16px; border:1px solid #3a3a3a; background:#0e0e0e;
-}
-.hero-headshot.placeholder, .hero-trophy.placeholder{
-  display:flex; align-items:center; justify-content:center;
-  color:#9aa0a6; font-weight:800; letter-spacing:.08em; text-transform:uppercase;
+  display:grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 20px;
+  padding: 16px;
+  border:1px solid var(--border);
+  background: var(--tilebg);
+  border-radius: 16px;
+  margin-bottom: 22px;
 }
 
-.hero-meta{ display:flex; flex-direction:column; gap:8px; }
-.hero-badge{
-  display:inline-block; background:#9af0cf; color:#1b1c1f;
-  font-weight:900; padding:6px 10px; border-radius:999px; letter-spacing:.06em;
-  width:max-content;
+@media (max-width: 860px){
+  .champ-hero{ grid-template-columns: 1fr; }
 }
-.hero-owner{ margin:0; font-weight:900; letter-spacing:.06em; font-size:clamp(22px,3.2vw,34px); }
-.hero-team{ font-weight:800; opacity:.95; }
-.hero-stats{ color:#cfd3d7; font-weight:700; display:flex; gap:8px; align-items:center; }
-.hero-stats .dot{ opacity:.6; }
-.hero-year{ color:#cfd3d7; font-weight:700; }
+
+.hero-left{ display:flex; flex-direction:column; justify-content:center; }
+.hero-title{
+  margin: 0 0 8px 0;
+  font-weight: 900;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  font-size: clamp(24px,4.5vw,48px);
+  color: var(--text);
+}
+.hero-title .year{ color:#75e5be; }
+
+.champ-winner{ margin: 2px 0 10px; }
+.winner-name{
+  font-weight:900;
+  letter-spacing:.04em;
+  font-size: clamp(20px,3.6vw,32px);
+}
+.winner-team{
+  color: var(--muted);
+  font-weight:700;
+  letter-spacing:.02em;
+  font-size: clamp(14px,2.4vw,18px);
+}
+
+.hero-stats{ display:flex; gap:18px; flex-wrap:wrap; margin-top:8px; }
+.stat{ background: var(--bg); color: var(--text); border:1px solid var(--border);
+       border-radius:10px; padding:10px 14px; }
+.stat-label{ font-size:12px; letter-spacing:.08em; text-transform:uppercase; color: var(--muted); }
+.stat-value{ font-weight:900; font-size:18px; }
+
+.hero-right{ display:flex; align-items:center; justify-content:center; }
+.trophy-img{ width:100%; height:auto; max-width:420px; display:block; }
+.winner-photo{ width:100%; height:auto; max-width:420px; display:block; border-radius:12px; }
 
 /* Banners */
+.champion-banners{ margin: 24px 0 40px; }
+.banners-title{
+  margin: 0 0 12px 0;
+  font-weight: 900; letter-spacing: .06em; text-transform: uppercase;
+  text-align: center; font-size: clamp(18px, 2.4vw, 22px);
+  color: var(--text);
+}
+
 .banner-grid{
   display:grid;
-  grid-template-columns: repeat(4, minmax(0,1fr));
-  gap:12px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  align-items:start;
 }
-@media (max-width:900px){ .banner-grid{ grid-template-columns: repeat(3,1fr); } }
-@media (max-width:640px){ .banner-grid{ grid-template-columns: repeat(2,1fr); } }
 
 .banner{
-  background:#1f1f1f; border:1px solid #3a3a3a; border-radius:16px;
-  padding:14px; text-align:center;
+  margin: 0;
+  padding: 10px;
+  border:1px solid var(--border);
+  background: var(--tilebg);
+  border-radius:12px;
+  display:flex; flex-direction:column; align-items:center;
 }
-.banner-year{ color:#9af0cf; font-weight:900; letter-spacing:.08em; }
-.banner-owner{ font-weight:900; letter-spacing:.06em; margin-top:4px; }
-.banner-team{ font-weight:700; opacity:.95; margin-top:2px; }
 
+.banner img{
+  width:100%; height:auto; max-width:340px; display:block; border-radius:6px;
+}
+
+.banner figcaption{
+  margin-top:8px; font-size:13px; color:var(--muted); text-align:center; line-height:1.35;
+}
