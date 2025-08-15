@@ -2,117 +2,95 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>The League v18.0 — Champions</title>
   <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
 <main class="wrap">
+
+  <!-- Top nav -->
   <nav class="topnav">
     <a class="pill" href="index.html">← Home</a>
   </nav>
 
-  <section class="champs-wrap">
-    <header class="champs-head center">
-      <h1 class="champs-title"><span class="year" id="currentYear">—</span> CHAMPION</h1>
-    </header>
+  <!-- ===== HERO: Current Champion ===== -->
+  <section class="champ-hero">
+    <div class="hero-left">
+      <h1 class="hero-title">
+        <span class="year">2024</span> Champion
+      </h1>
 
-    <!-- Current Champion (hero) -->
-    <article id="currentChamp" class="champ-hero"></article>
-
-    <div class="divider-lite"></div>
-
-    <h2 class="section-title" style="text-align:center;margin-top:14px;">Past Champions</h2>
-    <section id="bannerGrid" class="banner-grid"></section>
-
-    <div id="champsStatus" class="status"></div>
-  </section>
-</main>
-
-<script>
-/**
- * CHAMPIONS DATA (manual, editable)
- * For images: drop files under /assets/champions/ and update the paths below.
- * You can also add a headshot later (hero will show a placeholder if missing).
- */
-const CHAMPIONS = [
-  // Latest champion (hero card pulls the highest year)
-  {
-    year: 2024,
-    owner: "Pappas",
-    team: "Baker(d) Out-Of-Pocket",
-    record: "10-4",
-    avg: "98.0",
-    headshot: "",                                // optional: add a face photo later
-    trophy: "assets/champions/2024_trophy.png"   // <-- place your trophy image here
-  },
-
-  // Past champions (banner grid)
-  { year: 2023, owner: "The Ginger", team: "To Infinity and Bijan" },
-  { year: 2022, owner: "Fami",       team: "The Well Hung Jury" },
-  { year: 2021, owner: "Vasiliy",    team: "Lindsay Lohan" },
-  { year: 2020, owner: "Rabideau",   team: "Crud on my Crawdad - OBJ" },
-  { year: 2019, owner: "Vasiliy",    team: "Shitten in the Woods" },
-  { year: 2018, owner: "Pappas",     team: "Low Points Lotta Luck" },
-  { year: 2017, owner: "Rico",       team: "Baby You Can Drive My Carr" },
-  { year: 2016, owner: "Vasiliy",    team: "Walker Austin Ranger" },
-  { year: 2015, owner: "The Ginger", team: "Quintorris Lopez" },
-  { year: 2014, owner: "Mallows",    team: "Ol' Dirty Doombas" },
-  { year: 2013, owner: "Mallows",    team: "Jizzzelles goon squad" },
-  { year: 2012, owner: "Mallows",    team: "Please just stay healthy" },
-];
-
-/* helper: image with placeholder */
-function media(src, alt, cls, fallback){
-  if (src && src.trim()) return `<img src="${src}" alt="${alt}" class="${cls}">`;
-  return `<div class="${cls} placeholder">${fallback||"Image"}</div>`;
-}
-
-(function render(){
-  const status = document.getElementById('champsStatus');
-  try{
-    const sorted = [...CHAMPIONS].sort((a,b)=> b.year - a.year);
-    if(!sorted.length){ status.textContent = "No champion data yet."; return; }
-
-    const current = sorted[0];
-    document.getElementById('currentYear').textContent = current.year;
-
-    // HERO
-    const hero = document.getElementById('currentChamp');
-    hero.innerHTML = `
-      <div class="hero-media">
-        ${media(current.headshot, current.owner, "hero-headshot", current.owner||"Headshot")}
-        ${media(current.trophy, "Trophy", "hero-trophy", "Trophy")}
+      <div class="champ-winner">
+        <div class="winner-name">Pappas</div>
+        <div class="winner-team">Baker’d Out-Of-Pocket</div>
       </div>
-      <div class="hero-meta">
-        <div class="hero-badge">Reigning Champion</div>
-        <h2 class="hero-owner">${(current.owner||"—").toUpperCase()}</h2>
-        <div class="hero-team">${current.team||"—"}</div>
-        <div class="hero-stats">
-          <span class="stat"><strong>Record:</strong> ${current.record||"—"}</span>
-          <span class="dot">•</span>
-          <span class="stat"><strong>Avg:</strong> ${current.avg||"—"}</span>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-label">Record</div>
+          <div class="stat-value">10–4</div>
         </div>
-        <div class="hero-year">Season ${current.year}</div>
+        <div class="stat">
+          <div class="stat-label">Avg Points</div>
+          <div class="stat-value">98.0</div>
+        </div>
       </div>
-    `;
+    </div>
 
-    // BANNERS
-    const past = sorted.slice(0); // include current too so 2024 shows in banners as requested
-    const grid = document.getElementById('bannerGrid');
-    grid.innerHTML = past.map(c => `
-      <div class="banner">
-        <div class="banner-year">${c.year}</div>
-        <div class="banner-owner">${(c.owner||"—").toUpperCase()}</div>
-        <div class="banner-team">${c.team||"—"}</div>
-      </div>
-    `).join('');
+    <div class="hero-right">
+      <!-- Trophy or hero image (PNG/JPG) -->
+      <!-- Upload to assets/champions/trophy_2024.png (or change the src to your chosen path) -->
+      <img
+        class="trophy-img"
+        src="assets/champions/trophy_2024.png"
+        alt="2024 Champion Trophy — Pappas"
+      />
+      <!-- Optional: add a winner photo later by placing an <img> below with class="winner-photo" -->
+      <!-- <img class="winner-photo" src="assets/champions/2024_pappas_photo.jpg" alt="Pappas" /> -->
+    </div>
+  </section>
 
-    status.textContent = '';
-  }catch(e){
-    status.textContent = e?.message || String(e);
-  }
-})();
-</script>
+  <!-- ===== Past Champions (banners are just images) ===== -->
+  <section class="champion-banners">
+    <h3 class="banners-title">Past Champions</h3>
+    <div class="banner-grid">
+
+      <!-- 2024 (include as well so it shows in the row) -->
+      <figure class="banner">
+        <img
+          src="assets/champions/banners/2024_pappas.png"
+          alt="2024 Champion — Pappas (Baker’d Out-Of-Pocket)"
+          loading="lazy"
+        />
+        <figcaption>2024 • Pappas — Baker’d Out-Of-Pocket</figcaption>
+      </figure>
+
+      <!-- Add more banners as you create them (one per year) -->
+      <!--
+      <figure class="banner">
+        <img src="assets/champions/banners/2023_ginger.png"
+             alt="2023 Champion — The Ginger (To Infinity and Bijan)" loading="lazy" />
+        <figcaption>2023 • The Ginger — To Infinity and Bijan</figcaption>
+      </figure>
+
+      <figure class="banner">
+        <img src="assets/champions/banners/2022_fami.png"
+             alt="2022 Champion — Fami (The Well Hung Jury)" loading="lazy" />
+        <figcaption>2022 • Fami — The Well Hung Jury</figcaption>
+      </figure>
+
+      <figure class="banner">
+        <img src="assets/champions/banners/2021_vasiliy.png"
+             alt="2021 Champion — Vasiliy (Lindsay Lohan)" loading="lazy" />
+        <figcaption>2021 • Vasiliy — Lindsay Lohan</figcaption>
+      </figure>
+
+      ...and so on for your list
+      -->
+    </div>
+  </section>
+
+</main>
 </body>
 </html>
