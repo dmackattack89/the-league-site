@@ -366,7 +366,7 @@ a{
 /* Page banner image — shrink to 10% and center */
 .records-header img{
   display:block;
-  width:10%;        /* 10% of container width */
+  width:50%;        /* 50% of container width */
   max-width:none;   /* ignore any intrinsic max */
   height:auto;
   margin: 6px auto 14px;  /* center horizontally */
@@ -390,7 +390,7 @@ a{
   padding:12px;
 }
 
-/* Title ribbon image inside each card header — also 10% */
+/* Title ribbon image inside each card header — also 50% */
 .record-card-head{
   display:flex; align-items:center; justify-content:center;
   padding:6px 6px 10px;
@@ -398,7 +398,7 @@ a{
   margin: 0 -6px 10px;
 }
 .record-card-head img{
-  width:10%;        /* 10% of container width */
+  width:50%;        /* 50% of container width */
   max-width:none;
   height:auto;
   display:block;
