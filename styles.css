@@ -359,4 +359,92 @@ a{
   height: auto;
   border-radius: 16px; /* match the champ-hero card radius */
 }
+/* ===== Records page ===== */
+
+.records-header img{
+  display:block;
+  width:100%;
+  height:auto;
+  margin: 6px 0 14px;
+}
+
+/* Two cards side-by-side; stack on small screens */
+.records-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:16px;
+}
+@media (max-width: 900px){
+  .records-grid{ grid-template-columns: 1fr; }
+}
+
+.record-card{
+  border:1px solid var(--border);
+  background: var(--tilebg);
+  color: var(--text);
+  border-radius:16px;
+  padding:12px;
+}
+
+/* Title ribbon image inside each card header */
+.record-card-head{
+  display:flex; align-items:center; justify-content:center;
+  padding:6px 6px 10px;
+  border-bottom:1px solid var(--border);
+  margin: 0 -6px 10px;   /* let the image breathe edge-to-edge a bit */
+}
+.record-card-head img{
+  max-width:520px;
+  width:100%;
+  height:auto;
+  display:block;
+}
+
+/* Winner row: 3 columns (Name | Score | When) */
+.record-top.three{
+  display:grid;
+  grid-template-columns: 1.1fr 0.7fr 0.9fr;
+  gap:12px;
+  align-items:center;
+  padding:10px 6px 12px;
+  border-bottom:1px solid var(--border);
+}
+.record-top .cell{
+  font-weight:800;
+  letter-spacing:.02em;
+}
+.record-top .score{
+  font-size: clamp(20px, 3vw, 28px);
+}
+
+/* Bottom list: Rank | Name | Score | Year  */
+.record-list{
+  list-style:none; margin:0; padding: 6px 0 2px;
+}
+.record-list .row{
+  display:grid;
+  grid-template-columns: 56px 1fr 120px 100px;
+  gap:12px;
+  align-items:center;
+  padding:10px 6px;
+  border-bottom:1px solid var(--border);
+}
+.record-list .row:last-child{ border-bottom:none; }
+
+.record-list .rank{
+  width:36px; height:36px; border-radius:10px;
+  background:#75e5be; color:#1b1c1f;
+  display:inline-flex; align-items:center; justify-content:center;
+  font-weight:900;
+}
+
+.record-list .name{ font-weight:700; }
+.record-list .score{ font-weight:800; }
+.record-list .year{ color: var(--muted); font-weight:700; }
+
+/* narrow screens */
+@media (max-width: 520px){
+  .record-top.three{ grid-template-columns: 1fr; }
+  .record-list .row{ grid-template-columns: 44px 1fr 90px 70px; }
+}
 
