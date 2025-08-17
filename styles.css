@@ -366,7 +366,7 @@ a{
 /* Page banner image — shrink to 10% and center */
 .records-header img{
   display:block;
-  width:50%;        /* 50% of container width */
+  width:100%;        /* 100% of container width */
   max-width:none;   /* ignore any intrinsic max */
   height:auto;
   margin: 6px auto 14px;  /* center horizontally */
@@ -398,7 +398,7 @@ a{
   margin: 0 -6px 10px;
 }
 .record-card-head img{
-  width:50%;        /* 50% of container width */
+  width:100%;        /* 100% of container width */
   max-width:none;
   height:auto;
   display:block;
