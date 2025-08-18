@@ -363,13 +363,13 @@ a{
 
 /* ===== Records page ===== */
 
-/* Page banner image — shrink to 10% and center */
+/* Page banner image — we set at 10% earlier */
 .records-header img{
   display:block;
-  width:100%;        /* 100% of container width */
-  max-width:none;   /* ignore any intrinsic max */
+  width:10%;
+  max-width:none;
   height:auto;
-  margin: 6px auto 14px;  /* center horizontally */
+  margin: 6px auto 14px;
 }
 
 /* Two cards side-by-side; stack on small screens */
@@ -390,7 +390,7 @@ a{
   padding:12px;
 }
 
-/* Title ribbon image inside each card header — also 50% */
+/* Title ribbon image inside each card header — also 10% */
 .record-card-head{
   display:flex; align-items:center; justify-content:center;
   padding:6px 6px 10px;
@@ -398,13 +398,15 @@ a{
   margin: 0 -6px 10px;
 }
 .record-card-head img{
-  width:100%;        /* 100% of container width */
+  width:10%;
   max-width:none;
   height:auto;
   display:block;
 }
 
-/* Winner row: 3 columns (Name | Score | When) */
+/* -------- Top rows -------- */
+
+/* Winner row for week records: Name | Score | When */
 .record-top.three{
   display:grid;
   grid-template-columns: 1.1fr 0.7fr 0.9fr;
@@ -413,19 +415,42 @@ a{
   padding:10px 6px 12px;
   border-bottom:1px solid var(--border);
 }
-.record-top .cell{
-  font-weight:800;
-  letter-spacing:.02em;
+.record-top .cell{ font-weight:800; letter-spacing:.02em; }
+.record-top .score{ font-size: clamp(20px, 3vw, 28px); }
+
+/* Winner row for season records: Name | Score(+submetrics) | Year */
+.record-top.season{
+  display:grid;
+  grid-template-columns: 1.1fr 1.2fr 0.7fr; /* name | score-block | year */
+  gap:12px;
+  align-items:center;
+  padding:10px 6px 12px;
+  border-bottom:1px solid var(--border);
 }
-.record-top .score{
+.score-block .score{
+  font-weight:900;
   font-size: clamp(20px, 3vw, 28px);
+  line-height:1.1;
+  margin-bottom:6px;
+}
+.score-block .submetrics{
+  display:flex; gap:18px; flex-wrap:wrap;
+}
+.score-block .submetrics .label{
+  font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted);
+  margin-right:6px;
+}
+.score-block .submetrics .val{
+  font-weight:800;
 }
 
-/* Bottom list: Rank | Name | Score | Year  */
+/* -------- Bottom lists -------- */
+
+/* Bottom list (week records): Rank | Name | Score | Year  */
 .record-list{
   list-style:none; margin:0; padding: 6px 0 2px;
 }
-.record-list .row{
+.record-list.four .row{
   display:grid;
   grid-template-columns: 56px 1fr 120px 100px;
   gap:12px;
@@ -433,21 +458,47 @@ a{
   padding:10px 6px;
   border-bottom:1px solid var(--border);
 }
+
+/* Bottom list (season records): Rank | Name | AVG | TOTAL | Year */
+.record-list.five .row{
+  display:grid;
+  grid-template-columns: 56px 1fr 140px 140px 90px;
+  gap:12px;
+  align-items:center;
+  padding:10px 6px;
+  border-bottom:1px solid var(--border);
+}
+
 .record-list .row:last-child{ border-bottom:none; }
 
+/* shared bits */
 .record-list .rank{
   width:36px; height:36px; border-radius:10px;
   background:#75e5be; color:#1b1c1f;
   display:inline-flex; align-items:center; justify-content:center;
   font-weight:900;
 }
-
 .record-list .name{ font-weight:700; }
 .record-list .score{ font-weight:800; }
 .record-list .year{ color: var(--muted); font-weight:700; }
 
+/* little stacked column headers like 440 */
+.record-list .avg .colhead,
+.record-list .tot .colhead{
+  display:block;
+  font-size:12px; letter-spacing:.10em; text-transform:uppercase;
+  color: var(--muted);
+  margin-bottom:2px;
+}
+.record-list .avg .val,
+.record-list .tot .val{
+  font-weight:800;
+}
+
 /* narrow screens */
 @media (max-width: 520px){
   .record-top.three{ grid-template-columns: 1fr; }
-  .record-list .row{ grid-template-columns: 44px 1fr 90px 70px; }
+  .record-top.season{ grid-template-columns: 1fr; }
+  .record-list.four .row{ grid-template-columns: 44px 1fr 90px 70px; }
+  .record-list.five .row{ grid-template-columns: 44px 1fr 110px 110px 70px; }
 }
